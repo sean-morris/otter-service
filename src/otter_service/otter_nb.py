@@ -229,14 +229,14 @@ class OtterHandler(HubOAuthenticated, tornado.web.RequestHandler):
         """
         self.write("This is a post only page. You probably shouldn't be here!")
 
-    # @authenticated
+    @tornado.web.authenticated
     async def get(self):
         self.write("This is a post only page. You probably shouldn't be here!")
         user = self.get_current_user()
         self.write(json.dumps(user))
         self.finish()
 
-    # @authenticated
+    @tornado.web.authenticated
     async def post(self):
         user = {}
         metadata = {
