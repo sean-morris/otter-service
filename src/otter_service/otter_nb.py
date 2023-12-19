@@ -10,7 +10,8 @@ from hashlib import sha1
 from oauthlib.oauth1.rfc5849 import signature, parameters
 import pytz
 from pytz import timezone
-from jupyterhub.services.auth import HubOAuthenticated
+from jupyterhub.services.auth import HubOAuthenticated, HubOAuthCallbackHandler
+from jupyterhub.utils import url_path_join
 from lxml import etree
 import aiohttp
 import async_timeout
@@ -506,12 +507,12 @@ def start_server():
     app = tornado.web.Application(
         [
             (PREFIX, OtterHandler)
-            # (
-            #     url_path_join(
-            #         PREFIX, 'oauth_callback'
-            #     ),
-            #     HubOAuthCallbackHandler,
-            # )
+            (
+                url_path_join(
+                    PREFIX, 'oauth_callback'
+                ),
+                HubOAuthCallbackHandler,
+            )
         ],
         cookie_secret=os.urandom(32)
     )
