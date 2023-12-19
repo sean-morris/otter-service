@@ -13,7 +13,7 @@ if [ "$branch_name" == "dev" ] && [ "$1" == "build" ]; then
     yq eval ".services.app.build.args.OTTER_SERVICE_VERSION=\"$version\"" -i docker-compose.yml
     # if breaks on Permission denied run: gcloud auth login
     # build and push otter-srv
-    gcloud builds submit --substitutions=_TAG_NAME=$version --config ./deployment/cloud/cloudbuild.yaml
+    gcloud builds submit --substitutions=_TAG_NAME=$version --config ./cloudbuild.yaml
 fi
 ns=$(kubectl get namespaces | grep otter-${branch_name})
 sops -d -i --ignore-mac ./otter-service/values.yaml
