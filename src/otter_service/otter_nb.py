@@ -511,7 +511,7 @@ def start_server():
                 url_path_join(
                     PREFIX, 'oauth_callback'
                 ),
-                HubOAuthCallbackHandler,
+                HubOAuthCallbackHandler
             )
         ],
         cookie_secret=os.urandom(32)
