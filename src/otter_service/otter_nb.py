@@ -506,12 +506,12 @@ def start_server():
     tornado.options.parse_command_line()
     app = tornado.web.Application(
         [
-            (PREFIX, OtterHandler)
+            (PREFIX, OtterHandler),
             (
                 url_path_join(
                     PREFIX, 'oauth_callback'
                 ),
-                HubOAuthCallbackHandler,
+                HubOAuthCallbackHandler
             )
         ],
         cookie_secret=os.urandom(32)
