@@ -10,7 +10,8 @@ from hashlib import sha1
 from oauthlib.oauth1.rfc5849 import signature, parameters
 import pytz
 from pytz import timezone
-from jupyterhub.services.auth import HubOAuthenticated
+from jupyterhub.services.auth import HubOAuthenticated, HubOAuthCallbackHandler
+from jupyterhub.utils import url_path_join
 from lxml import etree
 import aiohttp
 import async_timeout
@@ -219,24 +220,13 @@ async def post_grade(solutions_base_path, metadata):
 
 
 class OtterHandler(HubOAuthenticated, tornado.web.RequestHandler):
-    """
-    This class handles the HTTP requests for this tornado instance
-    """
-    def data_received(self, chunk):
-        """
-        abstract methods empty
-        :param chunk
-        """
-        self.write("This is a post only page. You probably shouldn't be here!")
-
-    # @authenticated
+    @tornado.web.authenticated
     async def get(self):
         self.write("This is a post only page. You probably shouldn't be here!")
         user = self.get_current_user()
-        self.write(json.dumps(user))
-        self.finish()
+        self.write(json.dumps(user, indent=1, sort_keys=True))
 
-    # @authenticated
+    @tornado.web.authenticated
     async def post(self):
         user = {}
         metadata = {
@@ -505,13 +495,13 @@ def start_server():
     tornado.options.parse_command_line()
     app = tornado.web.Application(
         [
-            (PREFIX, OtterHandler)
-            # (
-            #     url_path_join(
-            #         PREFIX, 'oauth_callback'
-            #     ),
-            #     HubOAuthCallbackHandler,
-            # )
+            (PREFIX, OtterHandler),
+            (
+                url_path_join(
+                    PREFIX, 'oauth_callback'
+                ),
+                HubOAuthCallbackHandler
+            )
         ],
         cookie_secret=os.urandom(32)
     )

@@ -81,7 +81,7 @@ otter_env:
         gcp_project_id: data8x-scratch
         post_grade: "True"
         edx_url: courses.edx.org
-        jh_api_token: ENC[AES256_GCM,data:jNt2gyIkyY3/0sbYmVX1JrJ0LncV2PnooHLjnoaCZqgPGA041pAnEmRA3UUYR1RuRipHjA3gAlHGRuTlH0qonA==,iv:8tlFvEIw42z4HeBQf4BzDwrd7wMwNA9F3pHDir6pLcM=,tag:BCqwaUQ3orzkz9bxTIXjnA==,type:str]
+        jh_api_token: ENC[AES256_GCM,data:gZ0QFhVRSoivWlnkDJ+6xLICWPzOiM5jgcAX+dYNKUE=,iv:GANSTv7ijYRkQF0+57T/I0wvWAPRleTNnHuBakPn730=,tag:Y3rCk8VC1j7Rf/0b/PLAQg==,type:str]
         jh_client_id: service-otter_grade
         jh_service_prefix: /services/otter_grade/
         jh_service_name: otter_grade
@@ -106,13 +106,13 @@ sops:
     kms: []
     gcp_kms:
         - resource_id: projects/data8x-scratch/locations/global/keyRings/data8x-sops/cryptoKeys/otter-service
-          created_at: "2023-12-18T22:11:59Z"
-          enc: CiQA+mtdj1JKlJM+8AYsVi4TJ4D6DUgg6Kw8LCYVyd2pdkI6YJASSQAeeyex0dnXY+zXhOMRKQx77zk3AAvWJoO8oJcFbmm9VXYZceiH+0k86LMz3aXRlf6b+FeYxYVFhpeWiIXzwJObF1+Pe56o95g=
+          created_at: "2023-12-19T02:10:27Z"
+          enc: CiQA+mtdj0kP/7lUCRvGkmahoorhUnFGwk446UiQvrzuSbee1cMSSQAeeyex8eKDwX7hQz1JbDPN1p+lT8sOgpVMzD6PGlo6MvfbPHz3zV7DzBAcO4NLpgHQ+cXzeIsJBvJ9sDvUvX1xII5NNiJkGsA=
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-12-18T22:12:00Z"
-    mac: ENC[AES256_GCM,data:G1pBB39uTDAZwqwEcBR0KtRyNEnMGLATSwUFxQMK7SLMyP++t1QUTwbfT6AZRvaENlIDTuZkUI5P4hfNEmpenHUZm12VdrDRsfvj0C++gPkK4HHCP8+/5moyZcyj2Jn3QPT7t/VBHlgm5kJ9bch2spQlMy7pPvfeMWvyvQN+C2Q=,iv:BGr/VAuP4D/W2xClCOt6bjd0egd/jegW9BfIgvFNOHw=,tag:lVaLOg/4kqwq6d9emwjGTg==,type:str]
+    lastmodified: "2023-12-19T02:10:28Z"
+    mac: ENC[AES256_GCM,data:rsyGsw5lnefe2aBc+/8EJ4EXLXADaiSNU+uqXFRIlTBmtyiIehybciqm5lS1FfRKVifjLYksweu9GT6jGQheUdwuYzxFQ/sRCqNuAkJNfr9NKogofGB1Ri6XRgrozr6Z8OuM3gGksag+2qE2ujH/mobp3JPna4PlsV5yA6nkcXI=,iv:+J0cDTjYo6wCBfJMjAUrEHiV9jf82QqdfCUEyBRPFek=,tag:f5PP47lCqnB1u9yj2asqbg==,type:str]
     pgp: []
     encrypted_regex: jh_api_token
     version: 3.7.1
