@@ -79,9 +79,7 @@ otter_env:
     parameters:
         verbose_logging: "True"
         gcp_project_id: data8x-scratch
-        post_grade: "True"
         edx_url: courses.edx.org
-        jh_api_token: ENC[AES256_GCM,data:gZ0QFhVRSoivWlnkDJ+6xLICWPzOiM5jgcAX+dYNKUE=,iv:GANSTv7ijYRkQF0+57T/I0wvWAPRleTNnHuBakPn730=,tag:Y3rCk8VC1j7Rf/0b/PLAQg==,type:str]
         jh_client_id: service-otter_grade
         jh_service_prefix: /services/otter_grade/
         jh_service_name: otter_grade
@@ -102,17 +100,3 @@ autoscaling:
     minReplicas: 1
     maxReplicas: 2
     targetCPUUtilizationPercentage: 80
-sops:
-    kms: []
-    gcp_kms:
-        - resource_id: projects/data8x-scratch/locations/global/keyRings/data8x-sops/cryptoKeys/otter-service
-          created_at: "2023-12-19T02:10:27Z"
-          enc: CiQA+mtdj0kP/7lUCRvGkmahoorhUnFGwk446UiQvrzuSbee1cMSSQAeeyex8eKDwX7hQz1JbDPN1p+lT8sOgpVMzD6PGlo6MvfbPHz3zV7DzBAcO4NLpgHQ+cXzeIsJBvJ9sDvUvX1xII5NNiJkGsA=
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2023-12-19T02:10:28Z"
-    mac: ENC[AES256_GCM,data:rsyGsw5lnefe2aBc+/8EJ4EXLXADaiSNU+uqXFRIlTBmtyiIehybciqm5lS1FfRKVifjLYksweu9GT6jGQheUdwuYzxFQ/sRCqNuAkJNfr9NKogofGB1Ri6XRgrozr6Z8OuM3gGksag+2qE2ujH/mobp3JPna4PlsV5yA6nkcXI=,iv:+J0cDTjYo6wCBfJMjAUrEHiV9jf82QqdfCUEyBRPFek=,tag:f5PP47lCqnB1u9yj2asqbg==,type:str]
-    pgp: []
-    encrypted_regex: jh_api_token
-    version: 3.7.1
