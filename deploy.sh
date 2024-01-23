@@ -16,12 +16,12 @@ if [ "$branch_name" == "dev" ] && [ "$1" == "build" ]; then
     gcloud builds submit --substitutions=_TAG_NAME=$version --config ./cloudbuild.yaml
 fi
 ns=$(kubectl get namespaces | grep otter-${branch_name})
-sops -d -i --ignore-mac ./otter-service/values.yaml
+sops -d -i --ignore-mac ./otter-service/values.${branch_name}.yaml
 if [[ $ns == *"otter-${branch_name}"* ]]; then
     helm upgrade --install otter-srv --set otter_srv.tag=$version otter-service --values otter-service/values.yaml --values otter-service/values.$branch_name.yaml --namespace otter-$branch_name --skip-crds 
 else
     # Use this when namespace completely deleted
     helm install otter-srv --set otter_srv.tag=$version otter-service --values otter-service/values.yaml --values otter-service/values.$branch_name.yaml --create-namespace --namespace otter-$branch_name --skip-crds 
 fi
-git checkout -- ./otter-service/values.yaml
+git checkout -- ./otter-service/values.${branch_name}.yaml
 
