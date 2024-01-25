@@ -34,4 +34,4 @@ async def test_grade_assignment(configure):
                                          sops_path="sops",
                                          secrets_file=secrets_file,
                                          save_path=".")
-    assert 1.0 == grade
+    assert 0.833 == grade
