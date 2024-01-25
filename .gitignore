@@ -18,3 +18,4 @@ firestore-*
 ui-debug.log
 .vscode/launch.json
 gke_gcloud_auth_plugin_cache
+final_grades.csv
