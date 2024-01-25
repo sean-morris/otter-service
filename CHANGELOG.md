@@ -1,3 +1,9 @@
+## 1.1.1
+
+#### Enhancements made
+
+- Remove OAuth
+
 ## 1.1.0
 
 #### Enhancements made
