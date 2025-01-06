@@ -95,11 +95,11 @@ async def grade_assignment(submission,
         autograder_subpath = course_config[args["course"]][args["section"]]["subpath_to_zips"]
 
         solutions_path = f'{solutions_base_path}/{autograder_subpath}/{args["assignment"]}-autograder.zip'
-
         command = [
             'otter', 'grade',
+            '-n', f'{args["course"]}.{args["section"]}.{args["assignment"]}',
             '-a', solutions_path,
-            '-p', submission
+            submission
         ]
         process = await asyncio.create_subprocess_exec(
             *command,

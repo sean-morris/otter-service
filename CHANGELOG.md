@@ -1,3 +1,8 @@
+## 2.0.2
+
+#### Enhancements made
+
+- Updated to otter-grader 6.0.4
 ## 1.1.1
 
 #### Enhancements made
