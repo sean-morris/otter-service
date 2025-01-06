@@ -127,7 +127,7 @@ async def grade_assignment(submission,
             cmd = ' '.join(command)
             raise Exception(f"Unable to determine grade coming from otter on: {submission} using this commnad: {cmd}")
 
-        return float(grade), solutions_base_path
+        return round(float(grade), 3), solutions_base_path
     except asyncio.TimeoutError:
         raise Exception(f'Grading timed out for {submission}')
     except Exception as e:

@@ -220,13 +220,11 @@ async def post_grade(solutions_base_path, metadata):
 
 
 class OtterHandler(HubOAuthenticated, tornado.web.RequestHandler):
-    @tornado.web.authenticated
     async def get(self):
         self.write("This is a post only page. You probably shouldn't be here!")
         user = self.get_current_user()
         self.write(json.dumps(user, indent=1, sort_keys=True))
 
-    @tornado.web.authenticated
     async def post(self):
         user = {}
         metadata = {

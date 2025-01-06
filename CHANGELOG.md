@@ -3,6 +3,17 @@
 #### Enhancements made
 
 - Updated to otter-grader 6.0.4
+## 1.1.1
+
+#### Enhancements made
+
+- Remove OAuth
+
+## 1.1.0
+
+#### Enhancements made
+
+- Updated Grade reporting to three decimals
 
 ## 0.2.10
 
