@@ -1,0 +1,35 @@
+services:
+  dind:
+    image: docker:20-dind
+    command: ["--tls=false"]
+    container_name: dind-os-stand
+    privileged: true
+    restart: unless-stopped
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+    volumes:
+      - opt-volume:/opt
+      - tmp-volume:/tmp
+  app:
+    image: otter-srv
+    container_name: otter-srv
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+      args:
+        OTTER_SERVICE_VERSION: "2.0.2"
+        BUILD_VERSION: local
+    env_file:
+      - ../.local-env
+    environment:
+      DOCKER_HOST: tcp://dind-os-stand:2375
+      DOCKER_CLI_EXPERIMENTAL: enabled
+    ports:
+      - 10101:10101
+    volumes:
+      - ~/.config:/root/.config
+      - opt-volume:/opt
+      - tmp-volume:/tmp
+volumes:
+  opt-volume:
+  tmp-volume:

@@ -1,7 +1,5 @@
 venv
 .idea
-docker-compose.yml
-deployment/cloud/deploy-remove.sh
 .DS_Store
 *.egg-info
 build
