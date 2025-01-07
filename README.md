@@ -87,7 +87,7 @@ The system posts the grade back to the EdX via LTI. You need to have the `LTI_CO
 
 This is the current deployment configuration. We deploy the otter-service to gcloud and there is a re-direct from the Jupyterhub [configuration files](https://github.com/berkeley-dsep-infra/datahub/blob/7fed76f46e3636b3be225f1b149911aa9f1c6b1b/deployments/data8x/config/common.yaml#L22) in the [datahub repository](https://github.com/berkeley-dsep-infra/datahub/tree/staging/deployments/data8x/config) that passes authentication information to otter-service.
 
-Once the GKE cluster is created in gcloud, executing the `deployment/cloud/deploy.sh` file  deploys the service to the cloud. 
+Once the GKE cluster is created in gcloud, executing the `deploy.sh` file  deploys the service to the cloud. 
 
 # Deployment Details:
 ## Rollback: 
@@ -115,7 +115,7 @@ You can see the status of the horizontal scaling via this command:
 - kubectl get hpa -n grader-k8-namespace
 
 # pytest
-Run ./deployment/local/pytest.sh -- this will start the Firestore emulator and run the tests.
+Run ./deployment-utils/local/pytest.sh -- this will start the Firestore emulator and run the tests.
 If the emulator is already running it shuts it down. I shut down the emulator when the tests are done
 as well but you could comment out this line to check out the data that was stored.
 
@@ -160,7 +160,34 @@ networks:
 ```
 
 Notes:
-- .local-env These are environment variables that must be set. They mirror the variables in  `deployment/cloud/deployment-config-encrypted.yaml`. You do not need to encrypt your local-env file with sops. 
+- .local-env These are environment variables that must be set. They mirror the variables in the file `otter-service/values.yaml` under the key `otter_env`. You do not need to encrypt your local-env file with sops. 
+
+# Typical Workflow
+- Activate/create the python environment with conda or virtualenv using requirements/dev.txt
+- Make sure you are on dev branch
+- Make Changes
+- Add tests to `tests` dir
+- Run Tests: sh deployment-utils/local/pytest.sh
+- Deploy Locally: sh deployment-utils/local/build.sh
+- Run Integration Test: python3 tests/integration.py local 88e(or 8x) -- see file
+- Check local firestore to see progress: http://localhost:4000/firestore
+- Build for deployment: sh deploy.sh build
+- Run Integration Test: python3 tests/integration.py dev 88e(or 8x) -- see file
+- Check (CloudFireStore) [https://console.firebase.google.com/u/1/project/data8x-scratch/firestore/databases/-default-/data/~2Fotter-dev-grades~2FBFPDyOiU8zSjQ1hcXfzp]
+- Push dev changes: git push origin dev
+- Check out staging: git checkout staging
+- Merge in dev: git merge --no-ff dev
+- Push staging changes: git push origin staging
+- Deployment: sh deploy.sh
+- Run Integration Test: python3 tests/integration.py staging 88e(or 8x) -- see file
+- Check (CloudFireStore) [https://console.firebase.google.com/u/1/project/data8x-scratch/firestore/databases/-default-/data/~2Fotter-dev-grades~2FBFPDyOiU8zSjQ1hcXfzp]
+- Check out staging: git checkout prod
+- Merge in prod: git merge --no-ff staging
+- Push prod changes: git push origin prod
+- Deployment: sh deploy.sh
+- Run Integration Test: python3 tests/integration.py prod 88e(or 8x) -- see file
+- Check (CloudFireStore) [https://console.firebase.google.com/u/1/project/data8x-scratch/firestore/databases/-default-/data/~2Fotter-dev-grades~2FBFPDyOiU8zSjQ1hcXfzp]
+
 
 # Service installation in JupyterHub
 
