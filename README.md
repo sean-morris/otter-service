@@ -172,20 +172,20 @@ Notes:
 - Run Integration Test: python3 tests/integration.py local 88e(or 8x) -- see file
 - Check local firestore to see progress: http://localhost:4000/firestore
 - Build for deployment: sh deploy.sh build
-- Run Integration Test: python3 tests/integration.py dev 88e(or 8x) -- see file
+- Run Integration Test: python3 tests/integration.py dev 88e(or 8x) -- see file -- (NOTE: You need to have opened a secure connection via VPN with the `Library Access and Full Tunnel` Option selected - the other option is to run the test from an instance in the GCP project.)
 - Check (CloudFireStore) [https://console.firebase.google.com/u/1/project/data8x-scratch/firestore/databases/-default-/data/~2Fotter-dev-grades~2FBFPDyOiU8zSjQ1hcXfzp]
 - Push dev changes: git push origin dev
 - Check out staging: git checkout staging
 - Merge in dev: git merge --no-ff dev
 - Push staging changes: git push origin staging
 - Deployment: sh deploy.sh
-- Run Integration Test: python3 tests/integration.py staging 88e(or 8x) -- see file
+- Run Integration Test: python3 tests/integration.py staging 88e(or 8x) -- see file -- (NOTE: You need to have opened a secure connection via VPN with the `Library Access and Full Tunnel` Option selected - the other option is to run the test from an instance in the GCP project.)
 - Check (CloudFireStore) [https://console.firebase.google.com/u/1/project/data8x-scratch/firestore/databases/-default-/data/~2Fotter-dev-grades~2FBFPDyOiU8zSjQ1hcXfzp]
 - Check out staging: git checkout prod
 - Merge in prod: git merge --no-ff staging
 - Push prod changes: git push origin prod
 - Deployment: sh deploy.sh
-- Run Integration Test: python3 tests/integration.py prod 88e(or 8x) -- see file
+- Run Integration Test: python3 tests/integration.py prod 88e(or 8x) -- see file -- (NOTE: You need to have opened a secure connection via VPN with the `Library Access and Full Tunnel` Option selected - the other option is to run the test from an instance in the GCP project.)
 - Check (CloudFireStore) [https://console.firebase.google.com/u/1/project/data8x-scratch/firestore/databases/-default-/data/~2Fotter-dev-grades~2FBFPDyOiU8zSjQ1hcXfzp]
 
 

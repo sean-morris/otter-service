@@ -2,6 +2,8 @@ import json
 import requests
 import sys
 
+# NOTE! You need to have opened a secure connection via VPN with the `Library Access and Full Tunnel` Option selected
+# - the other option is to run the test from an instance in the GCP project.)
 JUPYTERHUB_SERVICE_PREFIX = "/services/otter_grade/"
 server_map = {
     "local": f"http://localhost:10101{JUPYTERHUB_SERVICE_PREFIX}",
