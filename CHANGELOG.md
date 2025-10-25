@@ -1,3 +1,15 @@
+## 2.0.4
+
+#### Enhancements made
+
+- Added 88be config
+
+## 2.0.3
+
+#### Enhancements made
+
+- Updated to otter-grader 6.1.3
+
 ## 2.0.2
 
 #### Enhancements made
