@@ -24,7 +24,7 @@ jobs:
           docker run -d --name otter-pr -p 10101:10101 \
             -v ${HOME}/gcloud-service-key.json:/tmp/sa-key.json \
             -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa-key.json \
-            -e GCP_PROJECT_ID=${{ secrets.GCP_PROJECT }} \
+            -e GCP_PROJECT_ID=${{ vars.GCP_PROJECT }} \
             -e ENVIRONMENT=otter-ci-${{ github.run_id }} \
             -e LOG_LEVEL=INFO \
             otter-service:pr
@@ -83,7 +83,7 @@ jobs:
                   print(f"deleted {len(docs)} docs from otter-ci-{run_id}-{suffix}")
           EOF
         env:
-          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT }}
 
       - name: Notify Slack
         if: always()
