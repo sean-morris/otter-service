@@ -1,3 +1,13 @@
+## 2.2.0
+
+#### Release process
+
+- `release.yml` now runs the full grading test (Docker build + Firestore
+  round-trip) before publishing to PyPI. A failed grading test blocks the
+  PyPI upload.
+- Added missing `PyJWT` and `requests` dependencies to the grading-test
+  setup step (`tests/fetch_test_notebooks.py` imports them).
+
 ## 2.1.0
 
 #### Breaking changes

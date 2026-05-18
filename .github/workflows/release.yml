@@ -84,7 +84,7 @@ jobs:
 
       - name: Fetch notebooks for grading test
         run: |
-          pip install nbformat pyyaml -q
+          pip install nbformat pyyaml PyJWT requests -q
           python3 tests/fetch_test_notebooks.py \
             --courses "88ex,88bx,88cx,8x" \
             ${{ inputs.quick_test == true && '--smoke' || '' }}
