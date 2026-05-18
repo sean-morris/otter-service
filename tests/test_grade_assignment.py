@@ -34,7 +34,12 @@ def configure():
         os.remove("./final_grades.csv")
 
 
-@requires_gh_creds
+@pytest.mark.skip(reason=(
+    "Depends on the SOPS-encrypted gh_key.yaml private key, which was "
+    "invalidated when the course-content-reader App key was rotated on "
+    "2026-05-17. Will be replaced by an env-var-driven test as part of "
+    "the SOPS-removal workstream (see secrets-vars-cleanup-plan.md §4b)."
+))
 def test_download_autograder_materials(configure):
     ga.download_autograder_materials("8x", save_path=".")
     assert os.path.isdir("./8X-autograders")
@@ -52,7 +57,10 @@ async def test_grade_assignment_8x(configure):
 
 
 @pytest.mark.asyncio
-@requires_gh_creds
+@pytest.mark.skip(reason=(
+    "Same SOPS-key dependency as test_download_autograder_materials — "
+    "skipped pending the SOPS-removal workstream."
+))
 async def test_grade_assignment_88e(configure):
     grade, _ = await ga.grade_assignment(
         "tests/test_files/lab01-88e.ipynb",
