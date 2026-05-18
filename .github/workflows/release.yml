@@ -88,7 +88,7 @@ jobs:
           GITHUB_APP_INSTALLATION_ID: ${{ vars.COURSE_CONTENT_READER_INSTALLATION_ID }}
           GITHUB_APP_PRIVATE_KEY: ${{ secrets.COURSE_CONTENT_READER_PRIVATE_KEY }}
         run: |
-          pip install nbformat pyyaml PyJWT requests -q
+          pip install nbformat pyyaml "PyJWT[crypto]" requests -q
           python3 tests/fetch_test_notebooks.py \
             --courses "88ex,88bx,88cx,8x" \
             ${{ inputs.quick_test == true && '--smoke' || '' }}
