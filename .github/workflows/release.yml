@@ -61,11 +61,18 @@ jobs:
         run: docker build -t otter-service:test .
 
       - name: Start otter-service for grading test
+        env:
+          github_app_id: ${{ vars.COURSE_CONTENT_READER_APP_ID }}
+          github_app_installation_id: ${{ vars.COURSE_CONTENT_READER_INSTALLATION_ID }}
+          github_app_private_key: ${{ secrets.COURSE_CONTENT_READER_PRIVATE_KEY }}
         run: |
           docker run -d --name otter-test -p 10101:10101 \
             -e GCP_PROJECT_ID=${{ vars.GCP_PROJECT }} \
             -e ENVIRONMENT=otter-ci-test-${{ github.run_id }} \
             -e LOG_LEVEL=INFO \
+            -e github_app_id \
+            -e github_app_installation_id \
+            -e github_app_private_key \
             otter-service:test
 
       - name: Wait for service to be ready
