@@ -65,7 +65,7 @@ jobs:
       - name: Start otter-service + dind for grading test
         env:
           GCP_PROJECT_ID: ${{ vars.GCP_PROJECT }}
-          ENVIRONMENT: otter-ci-test-${{ github.run_id }}
+          ENVIRONMENT: otter-ci-${{ github.run_id }}
           github_app_id: ${{ vars.COURSE_CONTENT_READER_APP_ID }}
           github_app_installation_id: ${{ vars.COURSE_CONTENT_READER_INSTALLATION_ID }}
           github_app_private_key: ${{ secrets.COURSE_CONTENT_READER_PRIVATE_KEY }}
