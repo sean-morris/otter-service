@@ -19,11 +19,22 @@ services:
       DOCKER_CLI_EXPERIMENTAL: enabled
       GCP_PROJECT_ID: ${GCP_PROJECT_ID}
       ENVIRONMENT: ${ENVIRONMENT}
-      LOG_LEVEL: INFO
+      LOG_LEVEL: DEBUG
       GOOGLE_APPLICATION_CREDENTIALS: /etc/gcp/creds.json
       github_app_id: ${github_app_id}
       github_app_installation_id: ${github_app_installation_id}
       github_app_private_key: ${github_app_private_key}
+      # Mirror prod otter-env ConfigMap so background grading tasks have the
+      # config they need to actually run + write grades.
+      gcp_project_id: ${GCP_PROJECT_ID}
+      environment: ${ENVIRONMENT}
+      verbose_logging: "True"
+      post_grade: "False"
+      edx_url: courses.edx.org
+      jh_client_id: service-otter_grade
+      jh_service_prefix: /services/otter_grade/
+      jh_service_name: otter_grade
+      test_user: TEST_USER
     ports:
       - 10101:10101
     volumes:
