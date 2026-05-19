@@ -82,7 +82,6 @@ def run_pair(db, collection_prefix, test_user, course, assignment):
         return True, []
 
     errors = []
-    deadline = time.time() + POLL_TIMEOUT
     consumed_ids = set()
 
     for role, nb_path, expected_grade in [
@@ -90,6 +89,10 @@ def run_pair(db, collection_prefix, test_user, course, assignment):
         ("solution", solution_nb, 1.0),
     ]:
         print(f"  Submitting {role} notebook ({course}/{assignment})...")
+        # Each submission gets its own POLL_TIMEOUT budget — grading is
+        # independent per notebook, so a slow student grade shouldn't
+        # starve the solution.
+        deadline = time.time() + POLL_TIMEOUT
         try:
             submit_notebook(nb_path)
             grade, doc_ref = poll_for_grade(
