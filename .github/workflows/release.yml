@@ -69,7 +69,9 @@ jobs:
           github_app_id: ${{ vars.COURSE_CONTENT_READER_APP_ID }}
           github_app_installation_id: ${{ vars.COURSE_CONTENT_READER_INSTALLATION_ID }}
           github_app_private_key: ${{ secrets.COURSE_CONTENT_READER_PRIVATE_KEY }}
-        run: docker compose -f tests/docker-compose.ci.yml up -d
+        run: |
+          export GHA_GCP_CREDS_FILE="$GOOGLE_APPLICATION_CREDENTIALS"
+          docker compose -f tests/docker-compose.ci.yml up -d
 
       - name: Wait for service to be ready
         run: |

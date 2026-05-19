@@ -20,6 +20,7 @@ services:
       GCP_PROJECT_ID: ${GCP_PROJECT_ID}
       ENVIRONMENT: ${ENVIRONMENT}
       LOG_LEVEL: INFO
+      GOOGLE_APPLICATION_CREDENTIALS: /etc/gcp/creds.json
       github_app_id: ${github_app_id}
       github_app_installation_id: ${github_app_installation_id}
       github_app_private_key: ${github_app_private_key}
@@ -28,6 +29,7 @@ services:
     volumes:
       - opt-volume:/opt
       - tmp-volume:/tmp
+      - ${GHA_GCP_CREDS_FILE}:/etc/gcp/creds.json:ro
 volumes:
   opt-volume:
   tmp-volume:
