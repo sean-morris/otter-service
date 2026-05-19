@@ -1,0 +1,33 @@
+services:
+  dind:
+    image: docker:20-dind
+    command: ["--tls=false"]
+    container_name: dind-ci
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+    volumes:
+      - opt-volume:/opt
+      - tmp-volume:/tmp
+  otter-test:
+    image: otter-service:test
+    container_name: otter-test
+    depends_on:
+      - dind
+    environment:
+      DOCKER_HOST: tcp://dind-ci:2375
+      DOCKER_CLI_EXPERIMENTAL: enabled
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
+      ENVIRONMENT: ${ENVIRONMENT}
+      LOG_LEVEL: INFO
+      github_app_id: ${github_app_id}
+      github_app_installation_id: ${github_app_installation_id}
+      github_app_private_key: ${github_app_private_key}
+    ports:
+      - 10101:10101
+    volumes:
+      - opt-volume:/opt
+      - tmp-volume:/tmp
+volumes:
+  opt-volume:
+  tmp-volume:
