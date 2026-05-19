@@ -326,7 +326,7 @@ class OtterHandler(HubOAuthenticated, tornado.web.RequestHandler):
 
             log_error_csv(user['name'], metadata, str(grade_submission_exception))
         except Exception as ex:  # pylint: disable=broad-except
-            msg = ''.join(traceback.format_exception(etype=type(ex), value=ex, tb=ex.__traceback__))
+            msg = ''.join(traceback.format_exception(type(ex), ex, ex.__traceback__))
             log_error_csv(user, metadata, msg)
 
     async def _grade_and_post(self, args):
