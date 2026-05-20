@@ -105,7 +105,7 @@ jobs:
 
       - name: Run grading test
         run: |
-          pip install google-cloud-firestore requests -q
+          pip install google-cloud-firestore requests pytz -q
           python3 tests/run_docker_grade_check.py \
             --run-id "${{ github.run_id }}"
         env:
