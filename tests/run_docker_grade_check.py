@@ -34,9 +34,15 @@ POLL_INTERVAL = 10  # seconds between Firestore polls
 POLL_TIMEOUT = 600  # seconds — autograder image pulls + grade can take 5+ min cold
 
 
-def make_user_id(run_id, course, assignment, role):
+def make_user_id(run_id, course, section, assignment, role):
     """Unique user per submission. Each grade lives at its own row."""
-    return f"TEST_USER_{run_id}_{course}_{assignment}_{role}"
+    return f"TEST_USER_{run_id}_{course}_{section}_{assignment}_{role}"
+
+
+def read_section(nb_path):
+    """Pull the section value out of the notebook's otter_service metadata."""
+    nb = json.loads(nb_path.read_text())
+    return str(nb.get("metadata", {}).get("otter_service", {}).get("section", "unknown"))
 
 
 def referer_for(user_id):
@@ -106,8 +112,9 @@ def run_pair(db, collection_prefix, run_id, course, assignment):
         ("student", student_nb, 0.0),
         ("solution", solution_nb, 1.0),
     ]:
-        user_id = make_user_id(run_id, course, assignment, role)
-        print(f"{tag} submitting {role} as {user_id}", flush=True)
+        section = read_section(nb_path)
+        user_id = make_user_id(run_id, course, section, assignment, role)
+        print(f"{tag} submitting {role} (section={section}) as {user_id}", flush=True)
         deadline = time.time() + POLL_TIMEOUT
         try:
             submit_notebook(nb_path, user_id)
