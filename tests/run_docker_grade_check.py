@@ -29,7 +29,7 @@ from google.cloud import firestore
 
 SERVICE_URL = "http://localhost:10101/services/otter_grade/"
 TEST_FILES_DIR = Path("tests/test_files")
-DEFAULT_CONCURRENCY = int(os.environ.get("GRADING_CONCURRENCY", "3"))
+DEFAULT_CONCURRENCY = int(os.environ.get("GRADING_CONCURRENCY", "2"))
 POLL_INTERVAL = 10  # seconds between Firestore polls
 POLL_TIMEOUT = 600  # seconds — autograder image pulls + grade can take 5+ min cold
 
