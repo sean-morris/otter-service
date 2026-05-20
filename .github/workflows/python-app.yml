@@ -37,6 +37,15 @@ jobs:
       - name: Validate Docker build
         run: docker build -t otter-srv:pr .
 
+      - name: Notify Slack
+        if: always()
+        uses: slackapi/slack-github-action@v3
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {"text": "${{ job.status == 'success' && '✅' || '❌' }} otter-service lint-and-build ${{ job.status }} — ${{ github.head_ref }} · <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Run #${{ github.run_id }}>"}
+
   test:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request_target'
@@ -88,3 +97,12 @@ jobs:
               repo: context.repo.repo,
               body: '✅ All checks passed! After merging, remember to bump the version, update CHANGELOG, then tag and push to trigger a release:\n```\ngit tag X.Y.Z\ngit push upstream X.Y.Z\n```'
             })
+
+      - name: Notify Slack
+        if: always()
+        uses: slackapi/slack-github-action@v3
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {"text": "${{ job.status == 'success' && '✅' || '❌' }} otter-service test ${{ job.status }} — ${{ github.head_ref }} · <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Run #${{ github.run_id }}>"}
