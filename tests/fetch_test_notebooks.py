@@ -103,7 +103,15 @@ def fetch_dir_files(token, repo, dir_path, ref="main"):
         content_data = gh_get(token, item["url"])
         if content_data is None:
             continue
-        decoded = base64.b64decode(content_data["content"])
+        # GitHub Contents API caps inline content at 1MB; for larger files the
+        # `content` field is empty and `encoding` is "none". Fall back to the
+        # raw download_url to fetch the actual bytes.
+        if content_data.get("encoding") == "base64" and content_data.get("content"):
+            decoded = base64.b64decode(content_data["content"])
+        else:
+            resp = requests.get(item["download_url"], headers=gh_headers(token))
+            resp.raise_for_status()
+            decoded = resp.content
         results.append((item["name"], decoded))
     return results
 
