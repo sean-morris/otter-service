@@ -51,7 +51,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Authenticate to GCP
-        uses: google-github-actions/auth@v2
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: 'projects/75088546496/locations/global/workloadIdentityPools/otter-pool/providers/github-actions'
           service_account: 'otter-sa@data8x-scratch.iam.gserviceaccount.com'

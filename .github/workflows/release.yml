@@ -25,7 +25,7 @@ jobs:
       - name: Build changelog
         if: github.ref_type == 'tag'
         id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@main
+        uses: mikepenz/release-changelog-builder-action@v6
         with:
           configuration: 'release-changelog-builder-config.json'
         env:
@@ -33,12 +33,10 @@ jobs:
 
       - name: Create GitHub release
         if: github.ref_type == 'tag'
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
           body: ${{ steps.build_changelog.outputs.changelog }}
           draft: false
           prerelease: false
@@ -54,7 +52,7 @@ jobs:
           python3 -m build
 
       - name: Authenticate to GCP (for grading test)
-        uses: google-github-actions/auth@v2
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: 'projects/75088546496/locations/global/workloadIdentityPools/otter-pool/providers/github-actions'
           service_account: 'otter-sa@data8x-scratch.iam.gserviceaccount.com'
@@ -130,14 +128,14 @@ jobs:
 
       - name: Authenticate to GCP
         if: github.ref_type == 'tag'
-        uses: google-github-actions/auth@v2
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: 'projects/75088546496/locations/global/workloadIdentityPools/otter-pool/providers/github-actions'
           service_account: 'otter-sa@data8x-scratch.iam.gserviceaccount.com'
 
       - name: Set up Cloud SDK
         if: github.ref_type == 'tag'
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
 
       - name: Build and push Docker image
         if: github.ref_type == 'tag'
@@ -154,7 +152,7 @@ jobs:
       - uses: actions/create-github-app-token@v3
         id: app-token
         with:
-          app-id: ${{ vars.EDX_IMAGE_BUILDER_APP_ID }}
+          client-id: ${{ vars.EDX_IMAGE_BUILDER_APP_ID }}
           private-key: ${{ secrets.EDX_IMAGE_BUILDER_PRIVATE_KEY }}
           owner: edx-berkeley
 
