@@ -26,6 +26,7 @@ from pathlib import Path
 
 import requests
 from google.cloud import firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 SERVICE_URL = "http://localhost:10101/services/otter_grade/"
 TEST_FILES_DIR = Path("tests/test_files")
@@ -73,9 +74,9 @@ def poll_for_grade(db, collection, user, course, assignment, deadline):
     while True:
         docs = (
             db.collection(collection)
-            .where("user", "==", user)
-            .where("course", "==", course)
-            .where("assignment", "==", assignment)
+            .where(filter=FieldFilter("user", "==", user))
+            .where(filter=FieldFilter("course", "==", course))
+            .where(filter=FieldFilter("assignment", "==", assignment))
             .get()
         )
         if docs:
