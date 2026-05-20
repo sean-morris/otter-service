@@ -32,7 +32,7 @@ SERVICE_URL = "http://localhost:10101/services/otter_grade/"
 TEST_FILES_DIR = Path("tests/test_files")
 DEFAULT_CONCURRENCY = int(os.environ.get("GRADING_CONCURRENCY", "2"))
 POLL_INTERVAL = 10  # seconds between Firestore polls
-POLL_TIMEOUT = 600  # seconds — autograder image pulls + grade can take 5+ min cold
+POLL_TIMEOUT = 900  # seconds — 88bx grading runs right at the 10-min mark under concurrency=2; 15 min gives headroom for cold image pulls in the full sweep
 
 
 def make_user_id(run_id, course, section, assignment, role):
